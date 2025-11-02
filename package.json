@@ -1,0 +1,23 @@
+{
+  "name": "react-orgasm",
+  "version": "1.0.0",
+  "description": "This is my react play arena.",
+  "main": "App.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pushfirst/react-orgasm.git"
+  },
+  "keywords": [],
+  "author": "Shakti Srivastava",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pushfirst/react-orgasm/issues"
+  },
+  "homepage": "https://github.com/pushfirst/react-orgasm#readme",
+  "devDependencies": {
+    "vite": "^7.1.12"
+  }
+}
