@@ -7,6 +7,7 @@ import BodyComponent from "./components/Body";
 import AboutComponent from "./components/AboutComponent";
 import ContactUSComponent from "./components/ContactUS";
 import Error from "./components/Error";
+import RestaurantMenu from "./components/RestaurantMenu";
 /**
  * Header
  * - Logo
@@ -51,6 +52,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/contact",
         element: <ContactUSComponent />,
+      },
+      {
+        path: '/restaurant/:restaurantId',
+        element: <RestaurantMenu/>
       },
     ],
     errorElement: <Error />,

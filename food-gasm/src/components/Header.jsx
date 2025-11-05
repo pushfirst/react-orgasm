@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import logo from "/assets/images/logo.avif";
+import { Link } from "react-router-dom";
 
 const HeaderComponent = () => {
   // let buttonName = "Login";
@@ -12,13 +13,26 @@ const HeaderComponent = () => {
       </div>
       <div className="nav-items">
         <ul>
-          <li>Home🏠</li>
-          <li>About🪧</li>
-          <li>Contact US🤙</li>
+          <li>
+            <Link to="/">Home🏠</Link>
+          </li>
+          <li>
+            <Link to="/about">About🪧</Link>
+          </li>
+          <li>
+            <Link to="/contact">Contact US🤙</Link>
+          </li>
           <li>Cart 🛒</li>
-          <button className="login-button" onClick={(() => {
-            buttonName === "Login" ? setButtonName("Logout") : setButtonName("Login");
-            })}>{buttonName}</button>
+          <button
+            className="login-button"
+            onClick={() => {
+              buttonName === "Login"
+                ? setButtonName("Logout")
+                : setButtonName("Login");
+            }}
+          >
+            {buttonName}
+          </button>
         </ul>
       </div>
     </div>

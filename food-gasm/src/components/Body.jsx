@@ -3,42 +3,60 @@ import React, { useEffect, useState } from "react";
 import RestaurantCardComponent from "./RestaurantCard";
 import { fetchRestaurants } from "../api/swiggy-live-api-call";
 import ShimmerCard from "./ShimmerCard";
+import { Link } from "react-router-dom";
 
 const BodyComponent = () => {
   const [listOfRestaurants, setlistOfRestaurants] = useState([]);
-  const [filteredListOfRestaurants, setFilteredListOfRestaurants] = useState([]);
-  const [searchText, setSearchText] = useState('');
+  const [filteredListOfRestaurants, setFilteredListOfRestaurants] = useState(
+    []
+  );
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     (async () => {
       try {
-        const data = await fetchRestaurants("26.83730", "80.91650");
-        setlistOfRestaurants(data);
-        setFilteredListOfRestaurants(data);
+        const res = await fetchRestaurants();
+        setlistOfRestaurants(res);
+        setFilteredListOfRestaurants(res);
       } catch (err) {
         console.error("Fetch failed:", err);
       } finally {
-        console.log('do nothing!')
+        console.log("done!");
       }
     })();
   }, []);
 
   // Conditional Rendering
-  return (listOfRestaurants.length === 0) ? <ShimmerCard /> : (
+  return listOfRestaurants.length === 0 ? (
+    <ShimmerCard />
+  ) : (
     <div className="body">
       <div className="filter">
         <div className="search">
-            <input type="text" className="search-bar" value= {searchText} onChange={(elem) => {
-                if((elem.target.value).length === 0) {
-                    setFilteredListOfRestaurants(listOfRestaurants);
-                }
-                setSearchText(elem.target.value);
-                }
-                }/>
-            <button onClick={()=> {
-                const filteredRestaurants = listOfRestaurants.filter(restaurant=> restaurant.info.name.toLowerCase().includes(searchText.toLowerCase()));
-                setFilteredListOfRestaurants(filteredRestaurants);
-            }}>Search</button>
+          <input
+            type="text"
+            className="search-bar"
+            value={searchText}
+            onChange={(elem) => {
+              if (elem.target.value.length === 0) {
+                setFilteredListOfRestaurants(listOfRestaurants);
+              }
+              setSearchText(elem.target.value);
+            }}
+          />
+          <button
+            onClick={() => {
+              const filteredRestaurants = listOfRestaurants.filter(
+                (restaurant) =>
+                  restaurant.info.name
+                    .toLowerCase()
+                    .includes(searchText.toLowerCase())
+              );
+              setFilteredListOfRestaurants(filteredRestaurants);
+            }}
+          >
+            Search
+          </button>
         </div>
         {/* <button className="login-button" onClick={() => {
             const filteredList = listOfRestaurants.filter(restaurant => parseFloat(restaurant.info.avgRating) > 4.40);
@@ -48,7 +66,7 @@ const BodyComponent = () => {
       <div className="restaurants-container">
         {filteredListOfRestaurants.map((data) => {
           return (
-            <RestaurantCardComponent key={data.info.id} data={data.info} />
+            <Link key={data.info.id} to={"restaurant/"+data.info.id}><RestaurantCardComponent key={data.info.id} data={data.info} /></Link>
           );
         })}
       </div>
