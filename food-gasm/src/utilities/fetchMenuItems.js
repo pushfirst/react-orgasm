@@ -1,8 +1,8 @@
 // extractMenu.js
-import menuItems from '../feed/swiggy-restaurant-menu.json';
+// import menuItems from '../feed/swiggy-restaurant-menu.json';
 
-function extractMenu(json = menuItems) {
-  const cards = json?.data?.cards ?? [];
+function extractMenu(json) {
+  const cards = json?.cards ?? [];
 
   // ---- Restaurant info (robust search) ----
   // Look for a card whose inner @type is "Restaurant" and has an "info" object.

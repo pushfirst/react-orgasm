@@ -1,0 +1,456 @@
+@import "tailwindcss";
+
+/* -----------------------------
+   HeaderComponent (Tailwind @apply)
+   ----------------------------- */
+
+/* Target the header wrapper (it already has these utility classes) */
+.flex.justify-between.shadow-lg.items-center {
+  @apply px-4 md:px-8 py-3 bg-white sticky top-0 z-50;
+}
+
+/* Logo container + image */
+.image-container {
+  @apply flex items-center;
+}
+.w-30 {
+  /* custom width since w-30 doesn't exist in Tailwind scale */
+  @apply w-[120px] h-auto;
+}
+
+/* Right-side nav */
+ul.flex {
+  @apply gap-6 items-center text-slate-700;
+}
+ul.flex > li {
+  @apply text-sm md:text-base px-1;
+}
+ul.flex a {
+  @apply hover:text-emerald-600 transition-colors;
+}
+
+/* Online/offline dot spacing */
+ul.flex > li:first-child {
+  @apply pr-1;
+}
+
+/* Login button */
+.login-button {
+  @apply ml-3 px-4 py-2 rounded-lg bg-emerald-500 text-white font-medium
+         hover:bg-emerald-600 active:scale-[.98] transition;
+}
+
+/* -----------------------------
+   BodyComponent (Tailwind @apply)
+   ----------------------------- */
+
+/* Page body container */
+.body {
+  @apply max-w-7xl mx-auto px-4 md:px-8 py-6;
+}
+
+/* Filter bar */
+.filter {
+  @apply mb-6 flex items-center justify-between;
+}
+
+/* Search group */
+.search {
+  @apply flex items-stretch gap-2 w-full max-w-xl;
+}
+
+/* Input */
+.search-bar {
+  @apply flex-1 rounded-lg border border-slate-300 bg-white px-3 py-2
+         text-slate-800 shadow-sm outline-none
+         placeholder:text-slate-400
+         focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200;
+}
+
+/* Search button (the <button> right after input) */
+.search > button {
+  @apply px-4 py-2 rounded-lg bg-emerald-500 text-white font-medium
+         hover:bg-emerald-600 active:scale-[.98] transition;
+}
+
+/* (Optional) extra actions area if you add buttons later */
+.filter .actions {
+  @apply flex items-center gap-3;
+}
+
+/* Cards grid */
+.restaurants-container {
+  @apply grid gap-4 md:gap-6
+         grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4;
+}
+
+/* Offline message (from the early return) */
+h1:has(> :where()) {} /* noop guard for older CSS */
+
+
+/* -----------------------------
+   RestaurantCardComponent (Tailwind @apply)
+   ----------------------------- */
+
+.restaurant-card {
+  @apply relative bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition 
+         duration-200 cursor-pointer flex flex-col;
+}
+
+/* Image area */
+.restaurant-card .media {
+  @apply relative w-full;
+}
+
+.restaurant-logo {
+  @apply w-full h-48 object-cover;
+}
+
+/* Discount ribbon */
+.ribbon {
+  @apply absolute bottom-2 left-2 bg-emerald-600 text-white text-xs font-semibold 
+         px-2 py-1 rounded-lg shadow-md;
+}
+
+/* Restaurant info */
+.restaurant-info {
+  @apply p-4 flex flex-col flex-grow;
+}
+
+.restaurant-info h3 {
+  @apply text-lg font-semibold text-slate-800 truncate;
+}
+
+/* Meta row (price, rating, time) */
+.meta-row {
+  @apply flex items-center justify-between text-sm text-slate-600 mt-1;
+}
+
+.cost-for-two {
+  @apply text-slate-700 font-medium;
+}
+
+.rating-pill {
+  @apply ml-auto bg-emerald-100 text-emerald-700 font-semibold px-2 py-[2px] rounded-full text-xs;
+}
+
+.meta-time {
+  @apply text-slate-500 ml-2;
+}
+
+/* Cuisine tags inline */
+.cuisines {
+  @apply inline-block text-xs text-slate-500 mr-1 mt-1;
+}
+
+/* Locality and area name */
+.locality {
+  @apply text-xs text-slate-400;
+}
+
+/* Dot separator */
+.dot {
+  @apply mx-1 h-1 w-1 bg-slate-400 rounded-full inline-block align-middle;
+}
+
+/* -----------------------------
+   RestaurantMenu (Tailwind @apply)
+   ----------------------------- */
+
+.menu {
+  @apply max-w-3xl mx-auto px-4 md:px-6 lg:px-0 py-6;
+}
+
+/* Title + subtext */
+.menu > h1 {
+  @apply text-2xl md:text-3xl font-bold text-slate-900 tracking-tight;
+}
+.menu > p {
+  @apply mt-2 text-sm md:text-base text-slate-600;
+}
+
+/* Section heading */
+.menu > h2 {
+  @apply mt-6 mb-3 text-xl font-semibold text-slate-800;
+}
+
+/* Dish list */
+.menu > ul {
+  @apply divide-y divide-slate-200 rounded-xl overflow-hidden bg-white shadow-sm;
+}
+.menu > ul > li {
+  @apply flex items-center justify-between gap-3 px-4 py-3;
+}
+
+/* Dish name */
+.menu > ul > li > :first-child {
+  @apply text-slate-800 font-medium;
+}
+
+/* Price (the text after the hyphen) — keep readable on wrap */
+.menu > ul > li {
+  /* If the dish name and price come as "name - price" within a single text node,
+     we still make the row look balanced with spacing and alignment. */
+  @apply text-sm md:text-base;
+}
+
+/* Optional: make the whole menu area stand out on light backgrounds */
+.menu {
+  @apply bg-transparent;
+}
+
+/* -----------------------------
+   RestaurantMenu – price pill & subtle polish
+   ----------------------------- */
+
+/* Container & heading already set earlier */
+
+.menu > ul > li {
+  @apply flex items-center justify-between gap-3 px-4 py-3;
+}
+
+/* Dish name */
+.menu > ul > li span:first-child,
+.menu > ul > li > :first-child {
+  @apply font-medium text-slate-800;
+}
+
+/* Price pill style (applied to price text on the right if separated by “–”) */
+.menu > ul > li::after {
+  content: attr(data-price);
+  @apply ml-auto bg-emerald-100 text-emerald-700 text-sm font-semibold 
+         px-2 py-[2px] rounded-full;
+}
+
+/* Optional hover polish */
+.menu > ul > li:hover {
+  @apply bg-emerald-50/40;
+}
+
+
+/* -----------------------------
+   ShimmerCard (Tailwind @apply)
+   ----------------------------- */
+
+/* Container – grid layout like restaurants */
+.shimmer-container {
+  @apply grid gap-4 md:gap-6 
+         grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 
+         p-4 md:p-6;
+}
+
+/* Each placeholder card */
+.shimmer-card {
+  @apply relative bg-slate-100 rounded-xl overflow-hidden shadow-sm h-56;
+}
+
+/* Shimmer animation */
+.shimmer-card::before {
+  content: "";
+  @apply absolute inset-0 bg-gradient-to-r from-slate-100 via-slate-200 to-slate-100;
+  animation: shimmer 1.5s infinite linear;
+}
+
+/* Keyframes for the shimmer effect */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* -----------------------------
+   Promoted Label on Restaurant Image
+   ----------------------------- */
+
+/* Wrap promoted restaurants in a .promoted-card container (conditionally via JS) */
+.promoted-card {
+  @apply relative;
+}
+
+/* The promoted ribbon/label */
+.promoted-card::before {
+  content: "Promoted";
+  @apply absolute top-2 left-2 bg-yellow-400 text-yellow-900 
+         text-xs font-semibold tracking-wide 
+         px-2 py-[2px] rounded-md shadow-md uppercase;
+}
+
+/* Optional subtle gradient behind image for readability */
+.promoted-card::after {
+  content: "";
+  @apply absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/10;
+  pointer-events: none;
+}
+
+/* -----------------------------
+   Accordion (Tailwind @apply)
+   ----------------------------- */
+
+.accordion {
+  @apply w-full max-w-3xl mx-auto divide-y divide-slate-200 rounded-xl bg-white shadow-sm;
+}
+
+.accordion-item {
+  @apply overflow-hidden;
+}
+
+/* Header/trigger row */
+.accordion-trigger {
+  @apply w-full flex items-center justify-between gap-3 px-4 py-4 text-left
+         font-medium text-slate-800 select-none cursor-pointer
+         hover:bg-slate-50 transition;
+  /* Recommended: make this a <button aria-expanded="true|false"> */
+}
+
+/* Chevron icon (e.g., ▾) */
+.accordion-chevron {
+  @apply inline-block transition-transform duration-200 text-slate-500;
+}
+
+/* Rotate chevron when open (works if you set aria-expanded on trigger) */
+.accordion-trigger[aria-expanded="true"] .accordion-chevron {
+  @apply rotate-180;
+}
+
+/* Content wrapper (collapsible) */
+.accordion-content {
+  @apply px-4 pb-4 text-sm text-slate-700;
+  /* Start collapsed */
+  height: 0;
+  overflow: hidden;
+  transition: height 200ms ease;
+  /* Optional: subtle divider fade */
+  background: linear-gradient(180deg, rgba(248,250,252,0) 0%, rgba(248,250,252,0.4) 100%);
+}
+
+/* When open: let JS set a class like `is-open` or toggle inline style height */
+.accordion-content.is-open {
+  height: auto; /* For JS-based measure+set, you can skip this and set explicit height */
+  overflow: visible;
+}
+
+/* Optional item body spacing utilities */
+.accordion-list {
+  @apply divide-y divide-slate-100 rounded-lg overflow-hidden;
+}
+.accordion-row {
+  @apply flex items-center justify-between gap-3 px-4 py-3;
+}
+.accordion-price {
+  @apply bg-emerald-100 text-emerald-700 text-xs font-semibold px-2 py-[2px] rounded-full;
+}
+
+/* -----------------------------
+   Dish Item Card (Tailwind @apply)
+   ----------------------------- */
+
+.accordion-list > div {
+  @apply flex flex-col md:flex-row justify-between items-start md:items-center 
+         p-4 border border-slate-100 rounded-xl bg-white shadow-sm hover:shadow-md 
+         transition duration-200 ease-in-out;
+}
+
+.accordion-list > div + div {
+  @apply mt-3;
+}
+
+/* Dish info text */
+.accordion-list span:first-child {
+  @apply text-base font-semibold text-slate-800;
+}
+
+/* Price */
+.accordion-list span:nth-child(2) {
+  @apply text-emerald-700 font-medium text-sm md:text-base mt-1 md:mt-0;
+}
+
+/* Description */
+.accordion-list span:nth-child(3) {
+  @apply text-sm text-slate-500 mt-1 md:mt-0 max-w-xl;
+}
+
+/* Optional: subtle hover effect */
+.accordion-list > div:hover {
+  @apply bg-emerald-50/40;
+}
+
+
+
+/* Row wrapper: two columns (text | image) with divider */
+.dish-row {
+  @apply grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4 py-5;
+  border-bottom: 1px solid theme('colors.slate.200');
+}
+
+/* Left column */
+.dish-left {
+  @apply flex flex-col gap-1;
+}
+
+/* Title with veg/non-veg dot */
+.dish-title-line {
+  @apply flex items-start gap-2;
+}
+.veg-dot {
+  @apply inline-block h-4 w-4 rounded-sm border border-emerald-600;
+  box-shadow: inset 0 0 0 3px white;
+}
+.dish-title {
+  @apply text-lg font-semibold text-slate-900 leading-snug;
+}
+
+/* Price line */
+.dish-price-line {
+  @apply flex items-center gap-3 mt-1;
+}
+.dish-mrp {
+  @apply text-slate-400 line-through;
+}
+.dish-price {
+  @apply text-emerald-700 font-semibold;
+}
+.best-price-pill {
+  @apply text-[11px] font-semibold bg-emerald-100 text-emerald-700 px-2 py-[2px] rounded-full;
+}
+
+/* Rating line */
+.dish-rating {
+  @apply flex items-center gap-1 text-emerald-700 text-sm mt-1;
+}
+.dish-rating .star {
+  @apply text-emerald-600;
+}
+.dish-rating .score {
+  @apply font-semibold;
+}
+.dish-rating .count {
+  @apply text-slate-500 ml-1;
+}
+
+/* Description */
+.dish-desc {
+  @apply text-slate-600 text-sm mt-2 leading-relaxed;
+}
+
+/* Right column */
+.dish-right {
+  @apply w-36 justify-self-end relative flex flex-col items-center;
+}
+.dish-thumb {
+  @apply w-36 h-28 object-cover rounded-xl shadow-sm;
+}
+
+/* ADD button floating overlap look */
+.dish-add {
+  @apply -mt-4 translate-y-1 bg-white text-emerald-700 border border-emerald-600 
+         font-extrabold tracking-wide px-6 py-1 rounded-full shadow-sm;
+}
+.dish-add:hover { @apply bg-emerald-50; }
+
+/* Customisable text */
+.dish-custom {
+  @apply text-xs text-slate-500 mt-1;
+}

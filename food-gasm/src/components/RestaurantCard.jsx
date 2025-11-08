@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { IMAGE_CDN_URL } from "../utilities/constants";
 
 
@@ -51,5 +51,17 @@ const RestaurantCardComponent = ({ data }) => {
     </article>
   );
 };
+
+// Higher Order Component
+export const withPromotedLabel = (RestaurantCard) => {
+  return (props) => {
+    return (
+      <div>
+        <label className="promoted-card">Promoted</label>
+        <RestaurantCard {...props}/>
+      </div>
+    )
+  }
+}
 
 export default RestaurantCardComponent;

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
-import RestaurantCardComponent from "./RestaurantCard";
+import RestaurantCardComponent, {withPromotedLabel} from "./RestaurantCard";
 import { fetchRestaurants } from "../api/swiggy-live-api-call";
 import ShimmerCard from "./ShimmerCard";
 import { Link } from "react-router-dom";
 import useNetworkStatus from "../utilities/useNetworkStatus";
+import UserContext from "../utilities/userContext";
 
 
 const BodyComponent = () => {
@@ -13,6 +14,10 @@ const BodyComponent = () => {
     []
   );
   const [searchText, setSearchText] = useState("");
+
+  const {loggedInUser, setUsername } = useContext(UserContext);
+
+  const RestaurantCardPromoted = withPromotedLabel(RestaurantCardComponent);
 
   useEffect(() => {
     (async () => {
@@ -65,11 +70,28 @@ const BodyComponent = () => {
             const filteredList = listOfRestaurants.filter(restaurant => parseFloat(restaurant.info.avgRating) > 4.40);
             setlistOfRestaurants(filteredList);
         }}>Top Rated Restaurant</button> */}
+                  <input
+            type="text"
+            className="search-bar"
+            value={loggedInUser.name}
+            onChange={(elem)=>setUsername({
+              name: elem.target.value
+            })}
+          />
       </div>
       <div className="restaurants-container">
         {filteredListOfRestaurants.map((data) => {
           return (
-            <Link key={data.info.id} to={"restaurant/"+data.info.id}><RestaurantCardComponent key={data.info.id} data={data.info} /></Link>
+            <Link 
+              key={data.info.id} 
+              to={"restaurant/"+data.info.id}
+              >
+              {
+                (data?.info?.promoted) 
+                  ? <RestaurantCardPromoted key={data.info.id} data={data.info} /> 
+                  : <RestaurantCardComponent key={data.info.id} data={data.info} />
+              }
+              </Link>
           );
         })}
       </div>
