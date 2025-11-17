@@ -12,6 +12,7 @@ import RestaurantMenu from "./components/RestaurantMenu";
 import UserContext from "./utilities/userContext";
 import appStore from "./utilities/appStore";
 import CartComponent from "./components/Cart";
+import Demo from "./components/Demo";
 /**
  * Header
  * - Logo
@@ -89,6 +90,9 @@ const appRouter = createBrowserRouter([
       {
         path:"/cart",
         element: <CartComponent/>
+      },      {
+        path:"/demo",
+        element: <Demo/>
       }
     ],
     errorElement: <Error />,
